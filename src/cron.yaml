@@ -1,0 +1,7 @@
+cron:
+- description: declare winner
+  url: /winner
+  schedule: every day 00:00
+- description: find new transactions
+  url: /new
+  schedule: every 15 minutes
