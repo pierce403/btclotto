@@ -26,7 +26,8 @@ class MainPage(webapp.RequestHandler):
     os.environ['TZ'] = 'UTC'
     time.tzset()
     self.response.out.write('''
-<html><body><center><br><br><br><small>
+<html><head><title>btclotto.net : free money!</title></head>
+<body><center><br><br><br><small>
 <form name="input" action="/" method="post">
 1337 handle: <input type="text" name="name" /><br>
 btc address: <input type="text" name="address" /><br>
@@ -99,7 +100,7 @@ class DeclareWinner(webapp.RequestHandler):
     total=0.0
     q=Tickets.all()
     q.order("-weight")
-    q.filter("weight >",0);
+    q.filter("weight >",0.0);
     for t in q.fetch(100):
       total+=t.weight
 
@@ -111,10 +112,10 @@ class DeclareWinner(webapp.RequestHandler):
     # start looping until winpoint is less than zero
     q=Tickets.all()
     q.order("-weight")
-    q.filter("weight >",0);
+    q.filter("weight >",0.0);
     for t in q.fetch(100):
       winpoint -= t.weight # are we below zero yet?
-      logging.info(t.name + " has a winpoint of " + winpoint)
+      logging.info(t.name + " has a winpoint of " + str(winpoint))
       t.spent  += t.weight # keep track of how many coins total have
       t.weight  = 0.0      #  been sent to this address
       t.put()
